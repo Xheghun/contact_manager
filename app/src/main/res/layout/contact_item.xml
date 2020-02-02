@@ -4,12 +4,14 @@
     android:layout_margin="4dp"
     android:layout_height="wrap_content">
     <de.hdodenhof.circleimageview.CircleImageView
-        android:background="@color/colorAccent"
+        android:background="@drawable/circle"
+        android:padding="8dp"
         android:id="@+id/contact_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_person"/>
     <TextView
+        android:id="@+id/contact_name"
         android:layout_marginStart="6dp"
         android:layout_toEndOf="@id/contact_img"
         android:layout_width="match_parent"

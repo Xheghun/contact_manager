@@ -37,11 +37,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/firstname_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="First name">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/firstname_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -51,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Last name">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lastname_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -67,11 +70,13 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_phone"/>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_num_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_num_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -93,6 +98,7 @@
                 android:hint="Birthday">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/birthday_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -115,6 +121,7 @@
                 android:hint="Addres">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -138,6 +145,7 @@
                 android:hint="Zip Code">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/zip_code_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />

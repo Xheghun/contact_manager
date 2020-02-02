@@ -20,12 +20,15 @@
         android:background="@drawable/curved_rect"
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="20"
             tools:listitem="@layout/contact_item"/>
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/new_contact"
+        android:onClick="toEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"

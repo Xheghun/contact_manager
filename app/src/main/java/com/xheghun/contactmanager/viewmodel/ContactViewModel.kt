@@ -17,7 +17,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     val getContacts: LiveData<List<Contact>>
 
     init {
-        val contactDao = ContactRoomDatabase.getDatabase(application).contactDao()
+        val contactDao = ContactRoomDatabase.getDatabase(application,viewModelScope).contactDao()
         repository = ContactRepository(contactDao)
         getContacts = repository.allContacts
     }
@@ -32,5 +32,9 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
 
     fun insert(contact: Contact) = viewModelScope.launch {
         repository.insert(contact)
+    }
+
+    fun delete() {
+        repository
     }
 }

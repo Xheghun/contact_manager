@@ -23,7 +23,7 @@ interface ContactDao {
 
     //declare a function to insert new contact into database,
     //this function will replace the contact if it already exist
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun createNewContact(contact: Contact)
 
 

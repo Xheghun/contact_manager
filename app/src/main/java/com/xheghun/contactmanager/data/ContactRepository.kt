@@ -13,4 +13,8 @@ class ContactRepository(private val contactDao: ContactDao) {
     suspend fun insert(contact: Contact) {
         contactDao.createNewContact(contact)
     }
+
+    suspend fun delete() {
+        contactDao.deleteAllContact()
+    }
 }

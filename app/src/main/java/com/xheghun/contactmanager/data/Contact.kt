@@ -3,6 +3,7 @@ package com.xheghun.contactmanager.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 /*
 define class to handle database
@@ -19,4 +20,4 @@ if you want it to be different from the variable name
 @Entity(tableName = "contacts_table")
 data class Contact(@ColumnInfo(name = "firstname") val firstname: String, @ColumnInfo(name = "lastname") val lastname: String,
                    @PrimaryKey @ColumnInfo(name = "phone_number") val phoneNumber: String, @ColumnInfo(name = "birthday") val birthday: String,
-                   @ColumnInfo(name = "address") val address: String, @ColumnInfo(name ="zip_code") val zipCode: String)
+                   @ColumnInfo(name = "address") val address: String, @ColumnInfo(name ="zip_code") val zipCode: String) : Serializable
