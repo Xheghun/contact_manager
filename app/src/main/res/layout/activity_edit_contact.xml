@@ -79,7 +79,7 @@
                     android:id="@+id/phone_num_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
@@ -92,17 +92,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_date"/>
-            <com.google.android.material.textfield.TextInputLayout
+            <!--<com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/birthday_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Birthday">
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Birthday">-->
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/birthday_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:hint="Birthday"
+                    android:focusable="false"
+                    android:editable="false"
                     android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+          <!--  </com.google.android.material.textfield.TextInputLayout>-->
         </LinearLayout>
 
         <LinearLayout
@@ -148,7 +155,7 @@
                     android:id="@+id/zip_code_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

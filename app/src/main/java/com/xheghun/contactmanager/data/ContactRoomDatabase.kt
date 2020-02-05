@@ -22,7 +22,7 @@ public abstract class ContactRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: ContactRoomDatabase? = null
 
-        fun getDatabase(context: Context,scope: CoroutineScope): ContactRoomDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): ContactRoomDatabase {
             val tempInstace = INSTANCE
             if (tempInstace != null) {
                 return tempInstace
@@ -35,18 +35,20 @@ public abstract class ContactRoomDatabase : RoomDatabase() {
                 ).addCallback(ContactDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
-                return  instance
+                return instance
             }
         }
     }
 
     private class ContactDatabaseCallback(
-        private val scope: CoroutineScope) : RoomDatabase.Callback() {
+        private val scope: CoroutineScope
+    ) : RoomDatabase.Callback() {
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
-            INSTANCE?.let { database -> scope.launch {
-                populateDatabase(database.contactDao())
-            }
+            INSTANCE?.let { database ->
+                scope.launch {
+                    populateDatabase(database.contactDao())
+                }
             }
         }
 
@@ -54,10 +56,10 @@ public abstract class ContactRoomDatabase : RoomDatabase() {
             //delete all content here.
             //contactDao.deleteAllContact()
 
-          /*  //add sample contact
-            var contact = Contact("Richard","Hendrix","+2349057177816",
-                "16/05/2016","97,Adexson Road, Igando","10001")
-            contactDao.createNewContact(contact)*/
+            /*  //add sample contact
+              var contact = Contact("Richard","Hendrix","+2349057177816",
+                  "16/05/2016","97,Adexson Road, Igando","10001")
+              contactDao.createNewContact(contact)*/
         }
     }
 }

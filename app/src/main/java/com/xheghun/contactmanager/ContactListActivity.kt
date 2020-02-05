@@ -26,15 +26,16 @@ class ContactListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_list)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val adapter = ContactListAdapter(this)
 
         val menuItemSelected = Toolbar.OnMenuItemClickListener {
-            contactViewModel.delete()
+            adapter.notifyDataSetChanged()
             true
         }
         toolbar.setOnMenuItemClickListener(menuItemSelected)
 
         recyclerView = findViewById(R.id.recyclerView)
-        val adapter = ContactListAdapter(this)
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -49,7 +50,7 @@ class ContactListActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newContactRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getSerializableExtra(EditContactActivity.EXTRA_REPLY)?.let {
+            data?.getSerializableExtra(EditContactActivity.EXTRA_REPLY_CREATE)?.let {
                 val contact = it as Contact
                 //val contact = Contact("hi","k","m","ie","mdn", "820290")
                 contactViewModel.insert(contact)
@@ -61,7 +62,12 @@ class ContactListActivity : AppCompatActivity() {
         }
     }
 
+    suspend fun del() {
+        contactViewModel.delete()
+    }
     public fun toEdit(view: View) {
-        startActivityForResult(Intent(this,EditContactActivity::class.java),newContactRequestCode)
+        val intent = Intent(this,EditContactActivity::class.java)
+        intent.putExtra("operation","new_contact")
+        startActivityForResult(intent,newContactRequestCode)
     }
 }

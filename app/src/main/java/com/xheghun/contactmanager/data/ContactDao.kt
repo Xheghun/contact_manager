@@ -1,10 +1,7 @@
 package com.xheghun.contactmanager.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 
 /*
@@ -30,4 +27,10 @@ interface ContactDao {
     //function to delete all contacts in a database
     @Query("DELETE FROM contacts_table")
     suspend fun deleteAllContact()
+
+    @Delete
+    fun deleteContact(contact: Contact)
+
+    @Update
+    fun update(contact: Contact)
 }
