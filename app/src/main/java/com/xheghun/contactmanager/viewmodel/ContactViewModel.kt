@@ -34,7 +34,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
         repository.insert(contact)
     }
 
-     suspend fun delete() {
-        repository.delete();
+     fun deleteAll() = viewModelScope.launch {
+        repository.deleteAll()
     }
 }

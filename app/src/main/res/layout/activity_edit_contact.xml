@@ -104,10 +104,7 @@
                     android:id="@+id/birthday_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:hint="Birthday"
-                    android:focusable="false"
-                    android:editable="false"
                     android:inputType="text" />
           <!--  </com.google.android.material.textfield.TextInputLayout>-->
         </LinearLayout>

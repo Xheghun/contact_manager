@@ -29,8 +29,27 @@ interface ContactDao {
     suspend fun deleteAllContact()
 
     @Delete
-    fun deleteContact(contact: Contact)
+    suspend fun deleteContact(contact: Contact)
 
     @Update
-    fun update(contact: Contact)
+    suspend fun update(contact: Contact)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

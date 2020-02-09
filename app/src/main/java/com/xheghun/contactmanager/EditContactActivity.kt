@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -25,13 +25,13 @@ class EditContactActivity : AppCompatActivity() {
     private lateinit var birthdayLayout: TextInputLayout
     private lateinit var addressText: TextInputEditText
     private lateinit var zipCodeText: TextInputEditText
-
+    private lateinit var pickerDialog: DatePickerDialog
     private lateinit var calender: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
-
+        calender = Calendar.getInstance()
 
         firstnameTextLayout = findViewById(R.id.firstname_layout)
         firstnameText = findViewById(R.id.firstname_text)
@@ -43,7 +43,19 @@ class EditContactActivity : AppCompatActivity() {
         zipCodeText = findViewById(R.id.zip_code_text)
 
 
-        calender = Calendar.getInstance()
+        val contact = intent.getSerializableExtra("contact_data")
+
+        if (contact != null) {
+            val contactDetails: Contact = contact as Contact
+            firstnameText.setText(contactDetails.firstname)
+            lastnameText.setText(contactDetails.lastname)
+            phoneNumText.setText(contactDetails.phoneNumber)
+            birthdayText.setText(contactDetails.birthday)
+            addressText.setText(contactDetails.address)
+            zipCodeText.setText(contactDetails.zipCode)
+        }
+
+
         val date = DatePickerDialog.OnDateSetListener { mView, year, month, day ->
             calender.set(Calendar.YEAR,year)
             calender.set(Calendar.MONTH,month)
@@ -52,10 +64,11 @@ class EditContactActivity : AppCompatActivity() {
         }
 
 
-        birthdayText.setOnClickListener { View.OnClickListener {
-            DatePickerDialog(this,date,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),
+        birthdayText.inputType = (InputType.TYPE_NULL)
+        birthdayText.setOnClickListener {
+            DatePickerDialog(this@EditContactActivity,date,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),
                 calender.get(Calendar.DAY_OF_MONTH)).show()
-        } }
+        }
 
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)

@@ -11,11 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xheghun.contactmanager._interface.ContactClickListener
 import com.xheghun.contactmanager.adapter.ContactListAdapter
 import com.xheghun.contactmanager.data.Contact
 import com.xheghun.contactmanager.viewmodel.ContactViewModel
 
-class ContactListActivity : AppCompatActivity() {
+class ContactListActivity : AppCompatActivity(), ContactClickListener {
     private val newContactRequestCode = 1
     private val updateContaRequestCode = 2
 
@@ -26,9 +27,10 @@ class ContactListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contact_list)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val adapter = ContactListAdapter(this)
+        val adapter = ContactListAdapter(this,this)
 
         val menuItemSelected = Toolbar.OnMenuItemClickListener {
+            contactViewModel.deleteAll()
             adapter.notifyDataSetChanged()
             true
         }
@@ -61,13 +63,15 @@ class ContactListActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
         }
     }
-
-    suspend fun del() {
-        contactViewModel.delete()
-    }
     public fun toEdit(view: View) {
         val intent = Intent(this,EditContactActivity::class.java)
         intent.putExtra("operation","new_contact")
         startActivityForResult(intent,newContactRequestCode)
+    }
+
+    override fun itemClick(contact: Contact) {
+        val intent = Intent(this,EditContactActivity::class.java)
+        intent.putExtra("contact_data",contact)
+        startActivityForResult(intent,updateContaRequestCode)
     }
 }
