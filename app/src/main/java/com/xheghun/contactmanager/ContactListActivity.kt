@@ -22,6 +22,7 @@ class ContactListActivity : AppCompatActivity(), ContactClickListener {
 
     private lateinit var contactViewModel: ContactViewModel
     lateinit var recyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_list)
@@ -57,20 +58,31 @@ class ContactListActivity : AppCompatActivity(), ContactClickListener {
                 //val contact = Contact("hi","k","m","ie","mdn", "820290")
                 contactViewModel.insert(contact)
             }
-        } else {
+        } else if (requestCode == updateContaRequestCode && resultCode == Activity.RESULT_OK) {
+            data?.getSerializableExtra(EditContactActivity.EXTRA_REPLY_UPDATE)?.let {
+                val contact = it as Contact
+                contactViewModel.update(contact)
+            }
+        }
+
+        else {
             Toast.makeText(applicationContext,
                 "Contact not saved",
                 Toast.LENGTH_SHORT).show()
         }
     }
+
     public fun toEdit(view: View) {
         val intent = Intent(this,EditContactActivity::class.java)
         intent.putExtra("operation","new_contact")
         startActivityForResult(intent,newContactRequestCode)
     }
 
+
+
     override fun itemClick(contact: Contact) {
         val intent = Intent(this,EditContactActivity::class.java)
+        intent.putExtra("operation","update_contact")
         intent.putExtra("contact_data",contact)
         startActivityForResult(intent,updateContaRequestCode)
     }

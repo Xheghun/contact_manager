@@ -8,9 +8,11 @@ import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.xheghun.contactmanager.data.Contact
+import com.xheghun.contactmanager.viewmodel.ContactViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,10 +24,8 @@ class EditContactActivity : AppCompatActivity() {
     private lateinit var phoneNumText: TextInputEditText
     private lateinit var phoneNumLayout: TextInputLayout
     private lateinit var birthdayText: EditText
-    private lateinit var birthdayLayout: TextInputLayout
     private lateinit var addressText: TextInputEditText
     private lateinit var zipCodeText: TextInputEditText
-    private lateinit var pickerDialog: DatePickerDialog
     private lateinit var calender: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,12 +88,19 @@ class EditContactActivity : AppCompatActivity() {
                         val data = intent.getStringExtra("operation")
                         if (data == "new_contact") {
                             createNewContact()
-                        } else if (data == "edit_contact") {
+                        } else if (data == "update_contact") {
                             editContact()
                         }
                     }
                 }
-                R.id.delete_contact -> {finish()}
+                R.id.delete_contact -> {
+                    //check if contact exist before deleting
+                    if (contact != null) {
+                        deleteContact()
+                    } else {
+                        finish()
+                    }
+                }
             }
             true
         }
@@ -104,8 +111,22 @@ class EditContactActivity : AppCompatActivity() {
 
     }
 
+    private fun deleteContact() {
+        val contact = intent.getSerializableExtra("contact_data")
+        val contactDetails = contact as Contact
+        val contactViewModel: ContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
+
+        contactViewModel.deleteContact(contactDetails)
+        finish()
+    }
+
     private fun editContact() {
-        TODO("edit contact not implemented") //To change body of created functions use File | Settings | File Templates.
+        val contact = Contact(firstnameText.text.toString(),lastnameText.text.toString(),phoneNumText.text.toString(),
+            birthdayText.text.toString(),addressText.text.toString(),zipCodeText.text.toString())
+        val replyIntent = Intent()
+        replyIntent.putExtra(EXTRA_REPLY_UPDATE,contact)
+        setResult(Activity.RESULT_OK,replyIntent)
+        finish()
     }
 
     private fun createNewContact() {
@@ -118,14 +139,14 @@ class EditContactActivity : AppCompatActivity() {
     }
 
     private fun updateLabel () {
-        val format = "MM/dd/yy"
+        val format = "MMMM dd yyyy"
         val dateFormat = SimpleDateFormat(format, Locale.US)
-
         birthdayText.setText(dateFormat.format(calender.time))
     }
 
     companion object {
         const val EXTRA_REPLY_CREATE = "com.xheghun.contact_manager.CREATE"
         const val EXTRA_REPLY_UPDATE = "com.xheghun.contact_manager.UPDATE"
+        const val EXTRA_REPLY_DELETE = "com.xheghun.contact_manager.DELETE"
     }
 }

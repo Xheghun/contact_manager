@@ -8,6 +8,7 @@
     tools:context=".ContactListActivity">
     <androidx.appcompat.widget.Toolbar
         android:paddingBottom="8dp"
+        app:titleTextAppearance="@style/toolbarTextAppearance"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
